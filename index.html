@@ -114,11 +114,11 @@
         let filterYear = ['==', ['number', ['get', 'Year']], 1800];
 
         map.addLayer({
-          id: 'collisions',
+          id: 'events',
           type: 'circle',
           source: {
             type: 'geojson',
-            data: './collisions1601.geojson'
+            data: './points.geojson'
           },
           paint: {
             'circle-radius': [
