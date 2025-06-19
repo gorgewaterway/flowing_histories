@@ -80,152 +80,77 @@
   <body>
     <div id="map"></div>
     <div id="console">
-      <h1>Motor vehicle collisions</h1>
+      <h1>Flowing Histories</h1>
       <p>
-        Data:
-        <a
-          href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95"
-          >Motor vehicle collision injuries and death</a
-        >
-        in NYC, Jan 2016
+        <a href="https://www.gorge.ca/">Walk through the history of the Gorge</a>
+        in Victoria, BC
       </p>
       <div class="session">
-        <h2>Casualty</h2>
-        <div class="row colors"></div>
-        <div class="row labels">
-          <div class="label">0</div>
-          <div class="label">1</div>
-          <div class="label">2</div>
-          <div class="label">3</div>
-          <div class="label">4</div>
-          <div class="label">5+</div>
-        </div>
-      </div>
-      <div class="session">
-        <h2>Hour: <label id="active-hour">12PM</label></h2>
+        <h2>Year: <label id="active-year">1800</label></h2>
         <input
           id="slider"
           class="row"
           type="range"
-          min="0"
-          max="23"
+          min="1800"
+          max="2025"
           step="1"
-          value="12"
+          value="1800"
         />
       </div>
-      <div class="session">
-        <h2>Day of the week</h2>
-        <div class="row" id="filters">
-          <input
-            id="all"
-            type="radio"
-            name="toggle"
-            value="all"
-            checked="checked"
-          />
-          <label for="all">All</label>
-          <input id="weekday" type="radio" name="toggle" value="weekday" />
-          <label for="weekday">Weekday</label>
-          <input id="weekend" type="radio" name="toggle" value="weekend" />
-          <label for="weekend">Weekend</label>
-        </div>
-      </div>
     </div>
+
     <script>
-      mapboxgl.accessToken = '{{MAPBOX_ACCESS_TOKEN}}';
+      mapboxgl.accessToken = 'pk.eyJ1IjoibGl6bWNjbGVhcnkiLCJhIjoiY203dXJvbG8zMDQxcTJqb2RobWJrb29rZiJ9.EXEp4Zxzb90S3p3977Pnfw';
+
       const map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/light-v11',
-        center: [123.3876, 48.4434],
-        zoom: 11
+        style: 'mapbox://styles/lizmccleary/cmc3wnb1o00e801so32wg6jk1',
+        center: [-123.40653732883574, 48.44640275829445],
+        zoom: 12.5
       });
 
       map.on('load', () => {
-        let filterHour = ['==', ['number', ['get', 'Hour']], 12];
-        let filterDay = ['!=', ['string', ['get', 'Day']], 'placeholder'];
+        let filterYear = ['==', ['number', ['get', 'Year']], 1800];
 
         map.addLayer({
           id: 'collisions',
           type: 'circle',
           source: {
             type: 'geojson',
-            data: './collisions1601.geojson' // replace this with the url of your own geojson
+            data: './collisions1601.geojson'
           },
           paint: {
             'circle-radius': [
               'interpolate',
               ['linear'],
               ['number', ['get', 'Casualty']],
-              0,
-              4,
-              5,
-              24
+              0, 4,
+              5, 24
             ],
             'circle-color': [
               'interpolate',
               ['linear'],
               ['number', ['get', 'Casualty']],
-              0,
-              '#2DC4B2',
-              1,
-              '#3BB3C3',
-              2,
-              '#669EC4',
-              3,
-              '#8B88B6',
-              4,
-              '#A2719B',
-              5,
-              '#AA5E79'
+              0, '#2DC4B2',
+              1, '#3BB3C3',
+              2, '#669EC4',
+              3, '#8B88B6',
+              4, '#A2719B',
+              5, '#AA5E79'
             ],
             'circle-opacity': 0.8
           },
-          'filter': ['all', filterHour, filterDay]
+          filter: ['all', filterYear]
         });
 
-        // update hour filter when the slider is dragged
         document.getElementById('slider').addEventListener('input', (event) => {
-          const hour = parseInt(event.target.value);
-          // update the map
-          filterHour = ['==', ['number', ['get', 'Hour']], hour];
-          map.setFilter('collisions', ['all', filterHour, filterDay]);
+          const year = parseInt(event.target.value);
+          filterYear = ['==', ['number', ['get', 'Year']], year];
+          map.setFilter('collisions', ['all', filterYear]);
 
-          // converting 0-23 hour to AMPM format
-          const ampm = hour >= 12 ? 'PM' : 'AM';
-          const hour12 = hour % 12 ? hour % 12 : 12;
-
-          // update text in the UI
-          document.getElementById('active-hour').innerText = hour12 + ampm;
+          // update the UI text
+          document.getElementById('active-year').innerText = year;
         });
-
-        document
-          .getElementById('filters')
-          .addEventListener('change', (event) => {
-            const day = event.target.value;
-            // update the map filter
-            if (day === 'all') {
-              filterDay = ['!=', ['string', ['get', 'Day']], 'placeholder'];
-            } else if (day === 'weekday') {
-              filterDay = [
-                'match',
-                ['get', 'Day'],
-                ['Sat', 'Sun'],
-                false,
-                true
-              ];
-            } else if (day === 'weekend') {
-              filterDay = [
-                'match',
-                ['get', 'Day'],
-                ['Sat', 'Sun'],
-                true,
-                false
-              ];
-            } else {
-              console.error('error');
-            }
-            map.setFilter('collisions', ['all', filterHour, filterDay]);
-          });
       });
     </script>
   </body>
