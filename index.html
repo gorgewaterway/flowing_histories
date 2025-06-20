@@ -92,10 +92,10 @@
           id="slider"
           class="row"
           type="range"
-          min="1800"
+          min="0"
           max="2025"
           step="1"
-          value="1800"
+          value="0"
         />
       </div>
     </div>
@@ -114,31 +114,15 @@
         let filterYear = ['==', ['number', ['get', 'Year']], 1800];
 
         map.addLayer({
-          id: 'events',
+          id: 'points',
           type: 'circle',
           source: {
             type: 'geojson',
-            data: './points.geojson'
+            data: 'https://raw.githubusercontent.com/lizmccleary/flowing_histories/main/points.geojson'
           },
           paint: {
-            'circle-radius': [
-              'interpolate',
-              ['linear'],
-              ['number', ['get', 'Casualty']],
-              0, 4,
-              5, 24
-            ],
-            'circle-color': [
-              'interpolate',
-              ['linear'],
-              ['number', ['get', 'Casualty']],
-              0, '#2DC4B2',
-              1, '#3BB3C3',
-              2, '#669EC4',
-              3, '#8B88B6',
-              4, '#A2719B',
-              5, '#AA5E79'
-            ],
+            'circle-radius': 1,
+            'circle-color':'#AA5E79',
             'circle-opacity': 0.8
           },
           filter: ['all', filterYear]
@@ -147,7 +131,7 @@
         document.getElementById('slider').addEventListener('input', (event) => {
           const year = parseInt(event.target.value);
           filterYear = ['==', ['number', ['get', 'Year']], year];
-          map.setFilter('collisions', ['all', filterYear]);
+          map.setFilter('points', ['all', filterYear]);
 
           // update the UI text
           document.getElementById('active-year').innerText = year;
