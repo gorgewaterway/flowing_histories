@@ -42,7 +42,7 @@
       #console {
         position: absolute;
         margin: 10px;
-        width: 240px;
+        width: 240px; 
         background-color: white;
         padding: 10px 20px;
       }
@@ -74,6 +74,14 @@
         display: inline-block;
         text-align: center;
       }
+      .mapboxgl-popup {
+        max-width: 400px;
+        font:
+            12px/20px 'Helvetica Neue',
+            Arial,
+            Helvetica,
+            sans-serif;
+    }
     </style>
   </head>
 
@@ -87,7 +95,7 @@
         in Victoria, BC
       </p>
       <div class="session">
-        <h2>Year: <label id="active-year">1800</label></h2>
+        <h2>Year: <label id="active-year">0</label></h2>
         <input
           id="slider"
           class="row"
@@ -101,25 +109,40 @@
     </div>
 
     <script>
-      mapboxgl.accessToken = 'pk.eyJ1IjoibGl6bWNjbGVhcnkiLCJhIjoiY203dXJvbG8zMDQxcTJqb2RobWJrb29rZiJ9.EXEp4Zxzb90S3p3977Pnfw';
+      mapboxgl.accessToken ='pk.eyJ1IjoibGl6bWNjbGVhcnkiLCJhIjoiY203dXJvbG8zMDQxcTJqb2RobWJrb29rZiJ9.EXEp4Zxzb90S3p3977Pnfw';
 
       const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/lizmccleary/cmc3wnb1o00e801so32wg6jk1',
         center: [-123.40653732883574, 48.44640275829445],
+        pitch: 60, 
+        bearing: 30, 
         zoom: 12.5
       });
       
       const scale = new mapboxgl.ScaleControl({
-    maxWidth: 80,
-    unit: 'imperial'
-    });
-    map.addControl(scale);
+        maxWidth: 80,
+        unit: 'imperial'
+      });
+      
+      map.addControl(scale);
 
-    scale.setUnit('metric');
+      scale.setUnit('metric');
       
       // add Find My Location to map 
-        map.addControl(new mapboxgl.NavigationControl());
+      map.addControl(new mapboxgl.NavigationControl());
+      
+        // adding 3d terrain
+        map.on('style.load', () => {
+            map.addSource('mapbox-dem', {
+                'type': 'raster-dem',
+                'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                'tileSize': 512,
+                'maxzoom': 14
+            });
+            // add the DEM source as a terrain layer with exaggerated height
+            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+        }); 
      
 
       map.on('load', () => {
@@ -143,28 +166,31 @@
           // update the UI text
           document.getElementById('active-year').innerText = year;
           
-          // create popup for event when clicked on 
-            map.on('click', 'points', (e) => {
-                const coordinates = e.lngLat;
-                const properties = e.features[0].properties;
-
-                new mapboxgl.Popup()
-                    .setLngLat(coordinates)
-                    .setHTML(`<strong>Name:</strong> ${properties.Name}<br><strong>Description:</strong> ${properties.Description}<br><strong>Year:</strong> ${properties.Year}<br><strong>Photo:</strong> ${properties.URL1}<br><strong>Read More:</strong> ${properties.ReadMoreBelow}`)
-                    .addTo(map);
-            });
-
-            // Change the cursor to a pointer when the mouse is over the points layer
-            map.on('mouseenter', 'points', () => {
-                map.getCanvas().style.cursor = 'pointer';
-            });
-
-            // Change it back to a pointer when it leaves
-            map.on('mouseleave', 'points', () => {
-                map.getCanvas().style.cursor = '';
-            });
-          });
         });
+          
+          // create popup for event when clicked on 
+
+        // Add popup click event
+        map.on('click', 'points', (e) => {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const properties = e.features[0].properties;
+
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(`<strong>Name:</strong> ${properties.Name}<br><strong>Description: </strong>${properties.Description}<br><strong>Year: </strong>${properties.Year}`)
+          .addTo(map);
+        });
+
+        // Change the cursor to a pointer when the mouse is over the points layer.
+        map.on('mouseenter', 'points', () => {
+        map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back when the mouse leaves.
+        map.on('mouseleave', 'points', () => {
+        map.getCanvas().style.cursor = '';
+        });
+      });
     </script>
   </body>
 </html>
