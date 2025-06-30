@@ -164,6 +164,7 @@
 
   <body>
     <div id="map"></div>
+    <div id="menu"></div>
     <div id="console">
       <h1>Flowing Histories</h1>
       <p>
@@ -330,6 +331,10 @@
         });
 
         // Add popups to WSANEC layer 
+        map.on('click', 'wsanec', (e) => {
+        const coordinates = e.lngLat; 
+        const properties = e.features[0].properties; 
+
         new mapboxgl.Popup()
           .setLngLat(coordinates)
           .setHTML(`<strong>Name:</strong> ${properties.Name}<br><strong>Description: </strong>${properties.Description}`)
@@ -347,6 +352,10 @@
         });
 
         // Add popups to Lekwungen/Songhees layer 
+        map.on('click', 'lekwungen', (e) => {
+        const coordinates = e.lngLat;
+        const properties = e.features[0].properties;
+
         new mapboxgl.Popup()
           .setLngLat(coordinates)
           .setHTML(`<strong>Name:</strong> ${properties.Name}<br><strong>Description: </strong>${properties.Description}`)
@@ -362,8 +371,11 @@
         map.getCanvas().style.cursor = '';
         });
 
+      });
+    }); 
+
       // After the last frame rendered before the map enters an "idle" state.
-    map.on('idle', () => {
+      map.on('idle', () => {
         // If these three layers were not added to the map, abort
         if (!map.getLayer('points') || !map.getLayer('wsanec') || !map.getLayer('lekwungen')) {
             return;
