@@ -197,6 +197,9 @@
         map.addLayer({
           id: 'points',
           type: 'circle',
+          layout: {
+            'visibility': 'visible'
+          }, 
           source: {
             type: 'geojson',
             data: 'https://raw.githubusercontent.com/lizmccleary/flowing_histories/main/points.geojson'
@@ -315,24 +318,24 @@
           .addTo(map);
 
         // Change the cursor to a pointer when the mouse is over the points layer.
-        map.on('mouseenter', 'lekwungen-songhees', () => {
+        map.on('mouseenter', 'lekwungen', () => {
         map.getCanvas().style.cursor = 'pointer';
         });
 
         // Change it back when the mouse leaves.
-        map.on('mouseleave', 'lekwungen-songhees', () => {
+        map.on('mouseleave', 'lekwungen', () => {
         map.getCanvas().style.cursor = '';
         });
 
       // After the last frame rendered before the map enters an "idle" state.
     map.on('idle', () => {
         // If these three layers were not added to the map, abort
-        if (!map.getLayer('points') || !map.getLayer('wsanec') || !map.getLayer('lekwungen-songhees')) {
+        if (!map.getLayer('points') || !map.getLayer('wsanec') || !map.getLayer('lekwungen')) {
             return;
         }
 
         // Enumerate ids of the layers.
-        const toggleableLayerIds = ['points', 'wsanec', 'lekwungen-songhees'];
+        const toggleableLayerIds = ['points', 'wsanec', 'lekwungen'];
 
         // Set up the corresponding toggle button for each layer.
         for (const id of toggleableLayerIds) {
