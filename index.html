@@ -248,7 +248,39 @@
         map.on('mouseleave', 'points', () => {
         map.getCanvas().style.cursor = '';
         });
-      });
+
+        // Add popups to WSANEC layer 
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(`<strong>Name:</strong> ${properties.Name}<br><strong>Description: </strong>${properties.Description}`)
+          .addTo(map);
+        });
+
+        // Change the cursor to a pointer when the mouse is over the points layer.
+        map.on('mouseenter', 'wsanec', () => {
+        map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back when the mouse leaves.
+        map.on('mouseleave', 'wsanec', () => {
+        map.getCanvas().style.cursor = '';
+        });
+
+        // Add popups to Lekwungen/Songhees layer 
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(`<strong>Name:</strong> ${properties.Name}<br><strong>Description: </strong>${properties.Description}`)
+          .addTo(map);
+
+        // Change the cursor to a pointer when the mouse is over the points layer.
+        map.on('mouseenter', 'lekwungen-songhees', () => {
+        map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back when the mouse leaves.
+        map.on('mouseleave', 'lekwungen-songhees', () => {
+        map.getCanvas().style.cursor = '';
+        });
     </script>
   </body>
 </html>
