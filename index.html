@@ -165,7 +165,15 @@
         // Add WSANEC territory layer to map 
         map.addLayer({
           id: 'wsanec',
-          type: 'polygon',
+          type: 'fill',
+            paint: {
+            'fill-color': '#FFB6C1',
+            'fill-outline-color': '#FFB6C1',
+            'fill-opacity': 0.60
+                }, 
+          layout: {
+            'visibility': 'visible'
+          }, 
           source: {
             type: 'geojson',
             data: 'https://raw.githubusercontent.com/lizmccleary/flowing_histories/main/wsanec.geojson'
@@ -175,7 +183,15 @@
         // Add Lekwungen/Songhees territory layer to map 
         map.addLayer({
           id: 'lekwungen',
-          type: 'polygon',
+          type: 'fill',
+          paint: {
+            'fill-color': '#FFB6C1',
+            'fill-outline-color': '#FFB6C1',
+            'fill-opacity': 0.60
+                }, 
+          layout: {
+            'visibility': 'visible'
+          }, 
           source: {
             type: 'geojson',
             data: 'https://raw.githubusercontent.com/lizmccleary/flowing_histories/main/lekwungen_songhees.geojson'
@@ -185,7 +201,15 @@
         // Wait on adding cayuse umatilla walla walla territory 
         // map.addLayer({
         //   id: 'wsanec',
-        //   type: 'polygon',
+        //   type: 'fill',
+        // paint: {
+        //   'fill-color': '#FFB6C1',
+        //   'fill-outline-color': '#FFB6C1',
+        //   'fill-opacity': 0.60
+        //       }, 
+        // layout: {
+        //   'visibility': 'visible'
+        // }, 
         //   source: {
         //     type: 'geojson',
         //     data: 'https://raw.githubusercontent.com/lizmccleary/flowing_histories/main/wsanec.geojson'
