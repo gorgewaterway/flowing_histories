@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Demo: Show changes over time with Mapbox GL JS</title>
+    <title>Flowing Histories: Explore the history of the Gorge Waterway</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
     <link
@@ -81,6 +81,48 @@
             Arial,
             Helvetica,
             sans-serif;
+    }
+
+    #menu {
+        position: absolute;
+        z-index: 1;
+        top: 68px;
+        left: 10px;
+        border: none; 
+        border-radius: 6px;
+        width: 130px;
+        font-family: 'Helvetica Heue', Helvetica/ sans-serif;
+    }
+
+    #menu a {
+        font-size: 15px;
+        color: #888888;
+        display: block;
+        margin: 0;
+        padding: 10px 15px;
+        border-radius: 6px; 
+        text-decoration: none;
+        border-bottom: 1px solid #696969;
+        text-align: center;
+        background-color: #ffffff; 
+    }
+
+    #menu a:last-child {
+        border: none;
+    }
+
+    #menu a:hover {
+        background-color: #f8f8f8;
+        color: #888888;
+    }
+
+    #menu a.active {
+        background-color: #888888;
+        color: #ffffff;
+    }
+
+    #menu a.active:hover {
+        background: #888888;
     }
     </style>
   </head>
@@ -281,6 +323,64 @@
         map.on('mouseleave', 'lekwungen-songhees', () => {
         map.getCanvas().style.cursor = '';
         });
+
+      // After the last frame rendered before the map enters an "idle" state.
+    map.on('idle', () => {
+        // If these three layers were not added to the map, abort
+        if (!map.getLayer('points') || !map.getLayer('wsanec') || !map.getLayer('lekwungen-songhees')) {
+            return;
+        }
+
+        // Enumerate ids of the layers.
+        const toggleableLayerIds = ['points', 'wsanec', 'lekwungen-songhees'];
+
+        // Set up the corresponding toggle button for each layer.
+        for (const id of toggleableLayerIds) {
+            // Skip layers that already have a button set up.
+            if (document.getElementById(id)) {
+                continue;
+            }
+
+            // Create a link.
+            const link = document.createElement('a');
+            link.id = id;
+            link.href = '#';
+            link.textContent = id;
+            link.className = 'active';
+          
+          // Set initial class based on layer visibility
+        const visibility = map.getLayoutProperty(id, 'visibility');
+        link.className = (visibility === 'visible') ? 'active' : '';
+
+            // Show or hide layer when the toggle is clicked.
+            link.onclick = function (e) {
+                const clickedLayer = this.textContent;
+                e.preventDefault();
+                e.stopPropagation();
+
+                const visibility = map.getLayoutProperty(
+                    clickedLayer,
+                    'visibility'
+                );
+
+               // Toggle layer visibility by changing the layout object's visibility property.
+                if (visibility === 'visible') {
+                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                    this.className = '';
+                } else {
+                    this.className = 'active';
+                    map.setLayoutProperty(
+                        clickedLayer,
+                        'visibility',
+                        'visible'
+                    );
+                }
+            };
+
+            const layers = document.getElementById('menu');
+            layers.appendChild(link);
+        }
+    });
     </script>
   </body>
 </html>
