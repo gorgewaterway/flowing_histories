@@ -119,7 +119,7 @@
         center: [-123.40653732883574, 48.44640275829445],
         pitch: 60, 
         bearing: 30, 
-        zoom: 12.5
+        zoom: 13
       });
       
       // Add functionality to increase user friendly experience 
@@ -164,38 +164,38 @@
 
         // Add WSANEC territory layer to map 
         map.addLayer({
-          id: 'wsanec',
-          type: 'fill',
-            paint: {
-            'fill-color': '#FFB6C1',
-            'fill-outline-color': '#FFB6C1',
-            'fill-opacity': 0.60
-                }, 
-          layout: {
-            'visibility': 'visible'
-          }, 
           source: {
             type: 'geojson',
             data: 'https://raw.githubusercontent.com/lizmccleary/flowing_histories/main/wsanec.geojson'
-          }
-        });
-
-        // Add Lekwungen/Songhees territory layer to map 
-        map.addLayer({
-          id: 'lekwungen',
+          },
+          id: 'wsanec',
           type: 'fill',
+          layout: {
+            'visibility': 'visible'
+          }, 
           paint: {
             'fill-color': '#FFB6C1',
             'fill-outline-color': '#FFB6C1',
             'fill-opacity': 0.60
-                }, 
-          layout: {
-            'visibility': 'visible'
-          }, 
+                }
+        });
+
+        // Add Lekwungen/Songhees territory layer to map 
+        map.addLayer({
           source: {
             type: 'geojson',
             data: 'https://raw.githubusercontent.com/lizmccleary/flowing_histories/main/lekwungen_songhees.geojson'
-          }
+          },
+          id: 'lekwungen',
+          type: 'fill',
+          layout: {
+            'visibility': 'visible'
+          }, 
+          paint: {
+            'fill-color': '#FFB6C1',
+            'fill-outline-color': '#FFB6C1',
+            'fill-opacity': 0.60
+                }
         });
 
         // Wait on adding cayuse umatilla walla walla territory 
