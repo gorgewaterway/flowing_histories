@@ -251,7 +251,7 @@
 
         // Add historical points layer, filtering through Year to change slider 
         map.addLayer({
-          id: 'points',
+          id: 'Historical Points of Interest',
           type: 'circle',
           layout: {
             'visibility': 'visible'
@@ -269,7 +269,7 @@
             type: 'geojson',
             data: 'https://raw.githubusercontent.com/gorgewaterway/flowing_histories/refs/heads/main/wsanec.geojson'
           },
-          id: 'wsanec',
+          id: 'W̱SÁNEĆ Traditional Territory',
           type: 'fill',
           layout: {
             'visibility': 'none'
@@ -287,7 +287,7 @@
             type: 'geojson',
             data: 'https://raw.githubusercontent.com/gorgewaterway/flowing_histories/refs/heads/main/lekwungen_songhees.geojson'
           },
-          id: 'lekwungen',
+          id: 'lək̓ʷəŋən/Songhees Traditional Territory',
           type: 'fill',
           layout: {
             'visibility': 'none'
@@ -329,7 +329,7 @@
         });
         
         // Add popup click event
-        map.on('click', 'points', (e) => {
+        map.on('click', 'Historical Points of Interest', (e) => {
         const coordinates = e.features[0].geometry.coordinates.slice();
         const properties = e.features[0].properties;
 
@@ -341,17 +341,17 @@
         });
 
         // Change the cursor to a pointer when the mouse is over the points layer.
-        map.on('mouseenter', 'points', () => {
+        map.on('mouseenter', 'Historical Points of Interest', () => {
         map.getCanvas().style.cursor = 'pointer';
         });
 
         // Change it back when the mouse leaves.
-        map.on('mouseleave', 'points', () => {
+        map.on('mouseleave', 'Historical Points of Interest', () => {
         map.getCanvas().style.cursor = '';
         });
 
         // Add popups to WSANEC layer 
-        map.on('click', 'wsanec', (e) => {
+        map.on('click', 'W̱SÁNEĆ Traditional Territory', (e) => {
         const coordinates = e.lngLat; 
         const properties = e.features[0].properties; 
 
@@ -362,17 +362,17 @@
         });
 
         // Change the cursor to a pointer when the mouse is over the points layer.
-        map.on('mouseenter', 'wsanec', () => {
+        map.on('mouseenter', 'W̱SÁNEĆ Traditional Territory', () => {
         map.getCanvas().style.cursor = 'pointer';
         });
 
         // Change it back when the mouse leaves.
-        map.on('mouseleave', 'wsanec', () => {
+        map.on('mouseleave', 'W̱SÁNEĆ Traditional Territory', () => {
         map.getCanvas().style.cursor = '';
         });
 
         // Add popups to Lekwungen/Songhees layer 
-        map.on('click', 'lekwungen', (e) => {
+        map.on('click', 'lək̓ʷəŋən/Songhees Traditional Territory', (e) => {
         const coordinates = e.lngLat;
         const properties = e.features[0].properties;
 
@@ -382,12 +382,12 @@
           .addTo(map);
 
         // Change the cursor to a pointer when the mouse is over the points layer.
-        map.on('mouseenter', 'lekwungen', () => {
+        map.on('mouseenter', 'lək̓ʷəŋən/Songhees Traditional Territory', () => {
         map.getCanvas().style.cursor = 'pointer';
         });
 
         // Change it back when the mouse leaves.
-        map.on('mouseleave', 'lekwungen', () => {
+        map.on('mouseleave', 'lək̓ʷəŋən/Songhees Traditional Territory', () => {
         map.getCanvas().style.cursor = '';
         });
 
@@ -397,12 +397,12 @@
       // After the last frame rendered before the map enters an "idle" state.
       map.on('idle', () => {
         // If these three layers were not added to the map, abort
-        if (!map.getLayer('points') || !map.getLayer('wsanec') || !map.getLayer('lekwungen')) {
+        if (!map.getLayer('Historical Points of Interest') || !map.getLayer('W̱SÁNEĆ Traditional Territory') || !map.getLayer('lək̓ʷəŋən/Songhees Traditional Territory')) {
             return;
         }
 
         // Enumerate ids of the layers.
-        const toggleableLayerIds = ['points', 'wsanec', 'lekwungen'];
+        const toggleableLayerIds = ['Historical Points of Interest', 'W̱SÁNEĆ Traditional Territory', 'lək̓ʷəŋən/Songhees Traditional Territory'];
 
         // Set up the corresponding toggle button for each layer.
         for (const id of toggleableLayerIds) {
