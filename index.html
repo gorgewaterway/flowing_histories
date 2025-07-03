@@ -42,7 +42,8 @@
       #console {
         position: absolute;
         margin: 10px;
-        width: 240px; 
+        width: 240px;
+        display: block;  
         background-color: white;
         padding: 10px 20px;
       }
@@ -91,7 +92,7 @@
         .mapboxgl-ctrl-group button {
             width: 32px; 
             height: 32px; 
-            bottom: 80px; 
+            bottom: 96px; 
             right: 10px;
         }
 
@@ -114,7 +115,7 @@
         padding: 10px 15px;
         border-radius: 6px; 
         text-decoration: none;
-        border-bottom: 1px solid #696969;
+        border: 1px solid #696969;
         text-align: center;
         background-color: #ffffff; 
       }
@@ -264,7 +265,7 @@
           id: 'wsanec',
           type: 'fill',
           layout: {
-            'visibility': 'visible'
+            'visibility': 'none'
           }, 
           paint: {
             'fill-color': '#FFB6C1',
@@ -282,7 +283,7 @@
           id: 'lekwungen',
           type: 'fill',
           layout: {
-            'visibility': 'visible'
+            'visibility': 'none'
           }, 
           paint: {
             'fill-color': '#F5F5DC',
