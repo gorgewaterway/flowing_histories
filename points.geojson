@@ -830,6 +830,108 @@
           48.45736505742777
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Sherwood Park Restoration Site",
+        "Description": "Sherwood Forest is the woodland East of the Nature House that hosts many restoration projects to support wildlife and forest health. For more information go to : https://www.gorge.ca/projects/sherwood-forest",
+        "Year": 2016
+      },
+      "geometry": {
+        "coordinates": [
+          -123.40609705089165,
+          48.445884288924475
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Indigenous Nature Interpreter Stewardship Site",
+        "Description": "The Indigenous Nature Interpreter (INI) Stewardship Site is designed as a place for the Esquimalt and Songhees Nations to gather, engage with, and learn about culturally significant plants.",
+        "Year": 2020
+      },
+      "geometry": {
+        "coordinates": [
+          -123.40603294646708,
+          48.44636478098158
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Green Shores Restoration",
+        "Description": "",
+        "Year": 2024
+      },
+      "geometry": {
+        "coordinates": [
+          -123.40751589488036,
+          48.446445585428194
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Gorge Creek Salt Marsh Restoration",
+        "Description": "The Gorge Creek salt marsh is a rare and ecologically rich brackish ecosystem that GWAS is working to restore and protect.",
+        "Year": 2022
+      },
+      "geometry": {
+        "coordinates": [
+          -123.40759423915546,
+          48.44611842072297
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Pollinator Meadow Restoration",
+        "Description": "The Pollinator Meadow boosts insect biodiversity by attracting native species to Esquimalt Gorge Park.",
+        "Year": 2020
+      },
+      "geometry": {
+        "coordinates": [
+          -123.40629674360609,
+          48.44493755409215
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Name": "Eelgrass Survey",
+        "Description": "Eelgrass is an important foundational species that supports much of the Gorge estuarine ecosystem. It creates habitat for salmon, herring, feeder fish, crustaceans, and many other species. The leaves shed and provide food for decomposers. These creatures support predators like birds. GWAS' eelgrass survey complements other, more in-depth surveys done in the Gorge less frequently. GWAS aim to fill in the gaps from year to year to monitor for big changes. Teams visit 13 sites along the Gorge and estimate density and cover while looking for spots where algae or pollution may be causing damage.",
+        "Year": 2022
+      },
+      "geometry": {
+        "coordinates": [
+          -123.4039163801323,
+          48.44729632365318
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+      "Name": "European Green Crab Monitoring", "Description": "Since 2022, GWAS has participated in the Department of Fisheries and Oceans’ European Green Crab Monitoring Project. European green crabs are a destructive invasive species that removes eelgrass very efficiently, destroying habitat for everything else in the Gorge. Unfortunately, teams caught adult European green crabs in the Gorge for the first time in August 2024 through the monitoring program. GWAS is working with the Department of Fisheries and Oceans and Peninsula Streams Society to remove as many as possible before the problem worsens. To prevent the spread of European Green Crabs, make sure to clean, drain, and dry off any watercraft according to BC Invasives.", "Year": 2022},
+      "geometry": {
+        "coordinates": [
+          -123.40206633415767,
+          48.4469210234158
+        ],
+        "type": "Point"
+      }
     }
   ]
 }
