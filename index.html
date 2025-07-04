@@ -36,14 +36,14 @@
 
       a {
         text-decoration: bold;
-        color: blue;
+        color: #101357;
       }
 
       #console {
         position: absolute;
         margin: 6px;
         width: 250px; 
-        background-color: #989572;
+        background-color: #fff5d7;
         padding: 12px 12px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
@@ -115,7 +115,7 @@
     #menu a {
         font-size: 15px;
         font-weight: bold; 
-        color: #989572;
+        color: #fff5d7;
         display: block;
         margin: 0;
         padding: 10px 15px;
@@ -132,20 +132,20 @@
 
     #menu a:hover {
         background-color: #f8f8f8;
-        color: #989572;
+        color: #fff5d7;
     }
 
     #menu a.active {
-        background-color: #989572;
+        background-color: #fff5d7;
         color: #ffffff;
     }
 
     #menu a.active:hover {
-        background: #989572;
+        background: #fff5d7;
     }
     #menu-info {
         background: black;
-        color: white;
+        color: #fff5d7;
         display: block;
         width: 116px; 
         padding: 10px 8px; 
@@ -163,16 +163,16 @@
     }
        
     #menu-info a {
-         color: #989572
+         color: #fff5d7
     }
        
     #menu-info a:hover {
-        background-color: #989572; 
+        background-color: #fff5d7; 
         color: black
     }
        
     #menu-info a.active {
-         background-color: #989572; 
+         background-color: #fff5d7; 
     }
        
     #menu-info a.active:hover {
@@ -397,7 +397,7 @@
       // After the last frame rendered before the map enters an "idle" state.
       map.on('idle', () => {
         // If these three layers were not added to the map, abort
-        if (!map.getLayer('Historical Points of Interest') || !map.getLayer('W̱SÁNEĆ Traditional Territory') || !map.getLayer('lək̓ʷəŋən/Songhees Traditional Territory')) {
+        if (!map.getLayer('Historical Points of Interest') || !map.getLayer('W̱SÁNEĆ Traditional Territory') || !map.getLayer('lək̓ʷəŋən Traditional Territory')) {
             return;
         }
 
