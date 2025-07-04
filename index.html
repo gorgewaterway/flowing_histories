@@ -106,46 +106,42 @@
         z-index: 1;
         top: 10px;
         right: 10px;
-        border: none; 
-        border-radius: 6px;
         width: 130px;
-        font-family: 'Helvetica Heue', Helvetica/ sans-serif;
+        background-color: #F5F5F5;
+        border-radius: 6px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        background-color: #f5f5f5;
-    }
+        overflow: hidden;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+      }
 
-    #menu a {
-        font-size: 15px;
-        font-weight: bold; 
-        color: black;
+      #menu a {
         display: block;
-        margin: 0;
-        padding: 10px 15px;
-        border-radius: 6px; 
-        text-decoration: none;
-        border-bottom: 1px solid #D3D3D3;
+        font-size: 15px;
+        font-weight: bold;
+        color: black;
         text-align: center;
-        background-color: #F5F5F5; 
-    }
+        text-decoration: none;
+        padding: 10px 15px;
+        border-bottom: 1px solid #D3D3D3;
+        background-color: #F5F5F5;
+        transition: background-color 0.2s, color 0.2s;
+      }
 
-    #menu a:last-child {
-        border: none;
-    }
+      #menu a:last-child {
+        border-bottom: none;
+      }
 
-    #menu a:hover {
+      #menu a:hover {
         background-color: #C0C0C0;
-        color: #F5F5F5;
-    }
+        color: white;
+      }
 
-    #menu a.active {
+      #menu a.active {
         background-color: #C0C0C0;
-        color: #ffffff;
-    }
-
-    #menu a.active:hover {
-        background: #C0C0C0;
-    }
-    #menu-info {
+        color: white;
+      }
+      
+      #menu-info {
         background: black;
         color: black;
         display: block;
