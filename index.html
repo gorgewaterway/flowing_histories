@@ -274,7 +274,7 @@
             'text-halo-color': '#fff',
             'text-halo-width': 1
             },
-          filter: [['number', ['get', 'Year']]]
+          filter: ['==', ['number', ['get', 'Year']], 0]
             });
           });
 
