@@ -133,12 +133,12 @@
       }
 
       #menu a:hover {
-        background-color: #e0e0e0;
+        background-color: white;
         color: black;
       }
 
       #menu a.active {
-        background-color: #e0e0e0;
+        background-color: white;
         color: black;
       }
 
@@ -166,7 +166,7 @@
     }
        
     #menu-info a:hover {
-        background-color: white; 
+        background-color: #e0e0e0; 
         color: black
     }
        
@@ -274,7 +274,7 @@
             'text-halo-color': '#fff',
             'text-halo-width': 1
             },
-          filter: ['==', ['number', ['get', 'Year']], 0]
+          filterYear: ['==', ['number', ['get', 'Year']], 0]
             });
           });
 
