@@ -274,10 +274,10 @@
             'text-halo-color': '#fff',
             'text-halo-width': 1
             },
-          filter: ['all', ['==', ['number', ['get', 'Year']], 0]]
+          filter: [['number', ['get', 'Year']]]
             });
           });
-          
+
         // Add WSANEC territory layer to map 
         map.addLayer({
           source: {
