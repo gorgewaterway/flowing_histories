@@ -248,35 +248,36 @@
       map.on('load', () => {
         let filterYear = ['==', ['number', ['get', 'Year']], 0];
 
+        // Add historical points layer, filtering through Year to change slider 
       map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png', (error, image) => {
         if (error) throw error;
-        map.addImage('custom-marker', image);
+          map.addImage('custom-marker', image);
 
-        // Add historical points layer, filtering through Year to change slider 
         map.addLayer({
           id: 'Historical Points of Interest',
           type: 'symbol',
-          layout: {
-               'icon-image': 'custom marker',       
-                'text-field': ['get', 'Name'],   
-                'text-font': ['Open Sans Bold'],
-                'text-size': 12,
-                'text-offset': [0, 1.2],
-                'text-anchor': 'top'
-            },
-          paint: {
-                'text-color': '#000000',
-                'text-halo-color': '#ffffff',
-                'text-halo-width': 1
-            },
           source: {
             type: 'geojson',
             data: 'https://raw.githubusercontent.com/lizmccleary/flowing_histories/main/points.geojson'
-          },
-          filter: ['all', filterYear]
-        }); 
-        });
-
+            },
+          layout: {
+            'icon-image': 'custom-marker',
+            'icon-size': 0.5,
+            'text-field': ['get', 'Name'],
+            'text-font': ['Open Sans Bold'],
+            'text-size': 12,
+            'text-offset': [0, 1.2],
+            'text-anchor': 'top'
+            },
+          paint: {
+            'text-color': '#000',
+            'text-halo-color': '#fff',
+            'text-halo-width': 1
+            },
+          filter: ['all', ['==', ['number', ['get', 'Year']], 0]]
+            });
+          });
+          
         // Add WSANEC territory layer to map 
         map.addLayer({
           source: {
