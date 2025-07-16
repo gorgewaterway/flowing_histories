@@ -1,1 +1,2 @@
 # flowing_histories
+This repository houses the Flowing Histories map which depicts the history of the Gorge Waterway in an web-based interactive map. This project was originally created by Natasha Danias and Daniel Brendle-Moczuk in partnership with the Gorge Waterway Action Society (GWAS) during the summer of 2024. Work on this project in onging as a collaboration between different branches of the GWAS staff. Questions can be directed to annie@gorge.ca. 
