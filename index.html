@@ -216,7 +216,7 @@
         center: [-123.402169836305, 48.456673080073834],
         pitch: 60, 
         bearing: 30, 
-        zoom: 12.5
+        zoom: 13
       });
       
       // Add functionality to increase user friendly experience 
@@ -341,6 +341,22 @@
           // Update the UI text
           document.getElementById('active-year').innerText = year;
           
+          // Zoom to the bounds of the filtered features
+          const features = map.querySourceFeatures('points', {
+            sourceLayer: 'points', // Optional, if using vector tiles
+            filter: filterYear
+          });
+
+          if (features.length > 0) {
+            const coordinates = features.map(f => f.geometry.coordinates);
+            const bounds = coordinates.reduce((b, coord) => b.extend(coord), new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+          map.fitBounds(bounds, {
+            padding: 50,
+            maxZoom: 12,
+            duration: 1000
+            });
+          }
         });
         
         // Add popup click event
