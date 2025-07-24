@@ -216,7 +216,7 @@
         center: [-123.402169836305, 48.456673080073834],
         pitch: 60, 
         bearing: 30, 
-        zoom: 11
+        zoom: 12
       });
       
       // Add functionality to increase user friendly experience 
@@ -254,7 +254,7 @@
           map.addImage('custom-marker', image);
 
         map.addLayer({
-          id: 'Historical Points of Interest',
+          id: 'historical_points',
           type: 'symbol',
           source: {
             type: 'geojson',
@@ -336,7 +336,7 @@
         document.getElementById('slider').addEventListener('input', (event) => {
           const year = parseInt(event.target.value);
           filterYear = ['==', ['get', 'Year'], year];
-          map.setFilter('Historical Points of Interest', ['all', filterYear]);
+          map.setFilter('historical_points', ['all', filterYear]);
 
           // Update the UI text
           document.getElementById('active-year').innerText = year;
@@ -344,7 +344,7 @@
         });
         
         // Add popup click event
-        map.on('click', 'Historical Points of Interest', (e) => {
+        map.on('click', 'historical_points', (e) => {
         const coordinates = e.features[0].geometry.coordinates.slice();
         const properties = e.features[0].properties;
 
@@ -356,12 +356,12 @@
         });
 
         // Change the cursor to a pointer when the mouse is over the points layer.
-        map.on('mouseenter', 'Historical Points of Interest', () => {
+        map.on('mouseenter', 'historical_points', () => {
         map.getCanvas().style.cursor = 'pointer';
         });
 
         // Change it back when the mouse leaves.
-        map.on('mouseleave', 'Historical Points of Interest', () => {
+        map.on('mouseleave', 'historical_points', () => {
         map.getCanvas().style.cursor = '';
         });
 
@@ -412,12 +412,12 @@
       // After the last frame rendered before the map enters an "idle" state.
       map.on('idle', () => {
         // If these three layers were not added to the map, abort
-        if (!map.getLayer('Historical Points of Interest') || !map.getLayer('W̱SÁNEĆ Traditional Territory') || !map.getLayer('lək̓ʷəŋən Traditional Territory')) {
+        if (!map.getLayer('historical_points') || !map.getLayer('W̱SÁNEĆ Traditional Territory') || !map.getLayer('lək̓ʷəŋən Traditional Territory')) {
             return;
         }
 
         // Enumerate ids of the layers.
-        const toggleableLayerIds = ['Historical Points of Interest', 'W̱SÁNEĆ Traditional Territory', 'lək̓ʷəŋən Traditional Territory'];
+        const toggleableLayerIds = ['historical_points', 'W̱SÁNEĆ Traditional Territory', 'lək̓ʷəŋən Traditional Territory'];
 
         // Set up the corresponding toggle button for each layer.
         for (const id of toggleableLayerIds) {
