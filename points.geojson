@@ -555,7 +555,9 @@
     {
       "type": "Feature",
       "properties": {
-        "Name": "Salt marsh restoration"
+        "Name": "Salt marsh restoration", 
+        "Description": "", 
+        "Year": 0
       },
       "geometry": {
         "coordinates": [
