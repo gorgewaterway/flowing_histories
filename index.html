@@ -274,7 +274,7 @@
             'text-halo-color': '#fff',
             'text-halo-width': 1
           },
-          filterYear: ['number', ['get', 'Year']]
+          filter: filterYear
             });
           });
 
@@ -336,15 +336,17 @@
         document.getElementById('slider').addEventListener('input', (event) => {
           const year = parseInt(event.target.value);
           filter = filterYear;
-          map.setFilter('Historical Points of Interest', ['all', filterYear]);
+          map.setFilter('Historical Points of Interest', filterYear);
 
           // Update the UI text
           document.getElementById('active-year').innerText = year;
           
           // Zoom to the bounds of the filtered features
-          const features = map.querySourceFeatures('Historical Points of Interest', {
+          const features = map.queryRenderedFeatures({
+            layers: ['Historical Points of Interest'],
             filter: filterYear
           });
+
 
           if (features.length > 0) {
             const coordinates = features.map(f => f.geometry.coordinates);
