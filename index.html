@@ -213,7 +213,7 @@
       const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/lizmccleary/cmc3wnb1o00e801so32wg6jk1',
-        center: [-123.403866, 48.44162],
+        center: [-123.403866, 48.433766],
         pitch: 60, 
         bearing: 30, 
         zoom: 13
@@ -246,7 +246,7 @@
      
       // Add layers to the map 
       map.on('load', () => {
-        let filterYear = ['==', ['get', 'Year'], 1842];
+        let filterYear = ['get', 'Year'];
 
         // Add historical points layer, filtering through Year to change slider 
       map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png', (error, image) => {
