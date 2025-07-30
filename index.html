@@ -197,7 +197,7 @@
           id="slider"
           class="row"
           type="range"
-          min="0"
+          min="1842"
           max="2025"
           step="1"
           value="0"
@@ -335,15 +335,14 @@
         // Dictate the behaviour of the slider, change points displayed as year changes 
         document.getElementById('slider').addEventListener('input', (event) => {
           const year = parseInt(event.target.value);
-          filterYear = ['==', ['get', 'Year'], year];
+          filter = filterYear;
           map.setFilter('Historical Points of Interest', ['all', filterYear]);
 
           // Update the UI text
           document.getElementById('active-year').innerText = year;
           
           // Zoom to the bounds of the filtered features
-          const features = map.querySourceFeatures('Historical Points of Interest', {
-            sourceLayer: 'Historical Points of Interest',
+          const features = map.querySourceFeatures('Historical Points of Interest', {,
             filter: filterYear
           });
 
