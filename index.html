@@ -246,7 +246,7 @@
      
       // Add layers to the map 
       map.on('load', () => {
-        let filterYear = ['==', ['number', ['get', 'Year']], 1850];
+        let filterYear = ['==', ['get', 'Year'], 1842];
 
         // Add historical points layer, filtering through Year to change slider 
       map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png', (error, image) => {
