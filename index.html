@@ -216,7 +216,7 @@
         center: [-123.403866, 48.433766],
         pitch: 60, 
         bearing: 30, 
-        zoom: 13
+        zoom: 12
       });
       
       // Add functionality to increase user friendly experience 
@@ -246,7 +246,7 @@
      
       // Add layers to the map 
       map.on('load', () => {
-        let filterYear = ['get', 'Year'];
+        let filterYear = ['==', ['get', 'Year'], 1842];
 
         // Add historical points layer, filtering through Year to change slider 
       map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png', (error, image) => {
@@ -332,36 +332,39 @@
         //   }
         // });
 
-        // Dictate the behaviour of the slider, change points displayed as year changes 
         document.getElementById('slider').addEventListener('input', (event) => {
           const year = parseInt(event.target.value);
-          filter = filterYear;
-          map.setFilter('Historical Points of Interest', filterYear);
+          const filterYear = ['==', ['get', 'Year'], year];
 
-          // Update the UI text
-          document.getElementById('active-year').innerText = year;
-          
-          // Zoom to the bounds of the filtered features
-          const features = map.queryRenderedFeatures({
-            layers: ['Historical Points of Interest'],
-            filter: filterYear
-          });
+        // Update the map layer filter
+        map.setFilter('Historical Points of Interest', filterYear);
 
+        // Update the UI label
+        document.getElementById('active-year').innerText = year;
 
-          if (features.length > 0) {
-            const coordinates = features.map(f => f.geometry.coordinates);
-            const bounds = coordinates.reduce((b, coord) => b.extend(coord), new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+        // Zoom to the visible features
+        const features = map.queryRenderedFeatures({
+        layers: ['Historical Points of Interest'],
+        filter: filterYear
+      });
 
-          map.fitBounds(bounds, {
-            padding: 50,
-            maxZoom: 10,
-            pitch: 60, 
-            bearing: 30, 
-            duration: 1000
-            });
-          }
+        if (features.length > 0) {
+          const coordinates = features.map(f => f.geometry.coordinates);
+          const bounds = coordinates.reduce(
+          (b, coord) => b.extend(coord),
+          new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+        );
+
+        map.fitBounds(bounds, {
+          padding: 50,
+          maxZoom: 10,
+          pitch: 60,
+          bearing: 30,
+          duration: 1000
         });
-        
+      }
+      });
+
         // Add popup click event
         map.on('click', 'Historical Points of Interest', (e) => {
         const coordinates = e.features[0].geometry.coordinates.slice();
