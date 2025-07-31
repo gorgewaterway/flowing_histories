@@ -1,85 +1,15 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Flowing Histories: Explore the history of the Gorge Waterway</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Tahoma', sans-serif;
-      }
-
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
-
-      h1 {
-        font-size: 30px;
-        line-height: 30px;
-        text-align: center; 
-      }
-
-      h2 {
-        font-size: 14px;
-        line-height: 20px;
-        margin-bottom: 10px;
-      }
-
-      a {
-        text-decoration: bold;
-        color: darkblue;
-      }
-
-      #console {
-        position: absolute;
-        margin: 4px;
-        width: 250px; 
-        top: 10px;
-        left: 10px; 
-        background-color: #F5F5F5;
-        padding: 8px 10px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        border-radius: 6px;
-      }
-
-      .session {
-        margin-bottom: 20px;
-      }
-
-      .row {
-        height: 12px;
-        width: 100%;
-      }
-
-      .colors {
-        background: linear-gradient(
-          to right,
-          #2dc4b2,
-          #3bb3c3,
-          #669ec4,
-          #8b88b6,
-          #a2719b,
-          #aa5e79
-        );
-        margin-bottom: 5px;
-      }
-
-      .label {
-        width: 15%;
-        display: inline-block;
-        text-align: center;
-      }
-      .mapboxgl-popup {
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Restoration Sites</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  .mapboxgl-popup {
         max-width: 400px;
         font:
             12px/20px 'Helvetica Neue',
@@ -101,125 +31,19 @@
         width: 40px; 
         height: 40px; 
       }
-
-      #menu {
-        position: absolute;
-        z-index: 1;
-        top: 10px;
-        right: 10px;
-        width: 130px;
-        background-color: #F5F5F5;
-        border-radius: 6px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-        font-family: 'Tahoma', sans-serif;
-      }
-
-      #menu a {
-        display: block;
-        font-size: 15px;
-        font-weight: bold;
-        color: black;
-        text-align: center;
-        text-decoration: none;
-        padding: 10px 12px;
-        border-bottom: 1px solid #D3D3D3;
-        background-color: #F5F5F5;
-        transition: background-color 0.2s, color 0.2s;
-      }
-
-      #menu a:last-child {
-        border-bottom: none;
-      }
-
-      #menu a:hover {
-        background-color: #e0e0e0;
-        color: black;
-      }
-
-      #menu a.active {
-        background-color: #e0e0e0;
-        color: black;
-      }
-
-      #menu-info {
-        background: black;
-        color: black;
-        display: block;
-        width: 116px; 
-        padding: 10px 8px; 
-        border: 1px solid black;  
-        border-radius: 6px; 
-        border-color: black; 
-        font-size: 15px;
-        font-family: 'Tahoma', sans-serif;
-        font-weight: bold; 
-        position: absolute; 
-        top: 10px; 
-        right: 8px; 
-        cursor: pointer; 
-        z-index: 1;
-    }
-       
-    #menu-info a {
-         color: black
-    }
-       
-    #menu-info a:hover {
-        background-color: white; 
-        color: black
-    }
-       
-    #menu-info a.active {
-         background-color: white; 
-    }
-       
-    #menu-info a.active:hover {
-         background: #e0e0e0; 
-    } 
-    </style>
-  </head>
-
-  <body>
-    <div id="map"></div>
-    <div id="menu"></div>
-    <div id="button"></div>
-    <div id="console">
-      <h1>Flowing Histories</h1>
-      <p>
-        Walk through the history of the 
-        <a href="https://www.gorge.ca/">Gorge</a>
-        in Victoria, BC. Click on the buttons on the right-hand side of the map to turn layers on and off. Zoom in to experience the Gorge in 3D.
-      </p>
-      <div class="session">
-        <h2>Year: <label id="active-year">1842</label></h2>
-        <input
-          id="slider"
-          class="row"
-          type="range"
-          min="1842"
-          max="2025"
-          step="1"
-          value="1842"
-        />
-      </div>
-    </div>
-
-    <script>
-      // MapBox access token to personal MapBox account and style
-      mapboxgl.accessToken ='pk.eyJ1IjoibGl6bWNjbGVhcnkiLCJhIjoiY203dXJvbG8zMDQxcTJqb2RobWJrb29rZiJ9.EXEp4Zxzb90S3p3977Pnfw';
-
-      // Declare the map and store in container using MapBox style 
-      const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/lizmccleary/cmc3wnb1o00e801so32wg6jk1',
-        center: [-123.403866, 48.433766],
-        pitch: 60, 
-        bearing: 30, 
-        zoom: 11
-      });
-      
-      // Add functionality to increase user friendly experience 
+</style>
+</head>
+<body>
+  <div id="button"></div>
+  <div id="map"></div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoibGl6bWNjbGVhcnkiLCJhIjoiY203dXJvbG8zMDQxcTJqb2RobWJrb29rZiJ9.EXEp4Zxzb90S3p3977Pnfw';
+    const map = new mapboxgl.Map({
+        container: 'map', 
+        center: [-123.407, 48.4457],
+        zoom: 17
+    });
+  
       const scale = new mapboxgl.ScaleControl({
         maxWidth: 80,
         unit: 'imperial'
@@ -231,263 +55,82 @@
       
       // Add Find My Location to map 
       map.addControl(new mapboxgl.NavigationControl());
-      
-        // Adding 3d terrain
-        map.on('style.load', () => {
-            map.addSource('mapbox-dem', {
-                'type': 'raster-dem',
-                'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-                'tileSize': 512,
-                'maxzoom': 14
-            });
-            // Add the DEM source as a terrain layer with exaggerated height
-            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
-        }); 
-     
-      // Add layers to the map 
-      map.on('load', () => {
-        let filterYear = ['==', ['get', 'Year'], 1842];
-
-        // Add historical points layer, filtering through Year to change slider 
-      map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png', (error, image) => {
-        if (error) throw error;
-          map.addImage('custom-marker', image);
-
-        map.addLayer({
-          id: 'Historical Points of Interest',
-          type: 'symbol',
-          source: {
+  
+  map.on('load', () => {
+        map.addSource('resto_sites', {
             type: 'geojson',
-            data: 'https://raw.githubusercontent.com/gorgewaterway/flowing_histories/main/points.geojson'
-            },
-          layout: {
-            'icon-image': 'custom-marker',
-            'icon-size': 0.5,
-            'text-field': ['get', 'Name'],
-            'text-font': ['Open Sans Bold'],
-            'text-size': 12,
-            'text-offset': [0, 1.2],
-            'text-anchor': 'top'
-            },
-          paint: {
-            'text-color': '#000',
-            'text-halo-color': '#fff',
-            'text-halo-width': 1
-          },
-          filter: filterYear
-            });
-          });
-
-        // Add WSANEC territory layer to map 
+            data: 'https://raw.githubusercontent.com/gorgewaterway/restoration_map/refs/heads/main/resto_sites.geojson'
+        });
         map.addLayer({
-          source: {
-            type: 'geojson',
-            data: 'https://raw.githubusercontent.com/gorgewaterway/flowing_histories/refs/heads/main/wsanec.geojson'
-          },
-          id: 'W̱SÁNEĆ Traditional Territory',
-          type: 'fill',
-          layout: {
-            'visibility': 'none'
-          }, 
-          paint: {
-            'fill-color': '#FFB6C1',
-            'fill-outline-color': '#FFB6C1',
-            'fill-opacity': 0.40
+            id: 'resto_sites',
+            source: 'resto_sites',
+            type: 'fill', 
+            paint: {
+            'fill-color': '#A47DAB',
+            'fill-outline-color': '#D3D3D3',
+            'fill-opacity': 0.70
                 }
         });
 
-        // Add Lekwungen/Songhees territory layer to map 
-        map.addLayer({
-          source: {
+         map.addSource('nature_house', {
             type: 'geojson',
-            data: 'https://raw.githubusercontent.com/gorgewaterway/flowing_histories/refs/heads/main/lekwungen_songhees.geojson'
-          },
-          id: 'lək̓ʷəŋən Traditional Territory',
-          type: 'fill',
-          layout: {
-            'visibility': 'none'
-          }, 
-          paint: {
-            'fill-color': '#F5F5DC',
-            'fill-outline-color': '#F5F5DC',
-            'fill-opacity': 0.40
+            data: 'https://raw.githubusercontent.com/gorgewaterway/restoration_map/refs/heads/main/nh.geojson'
+        });
+        map.addLayer({
+            id: 'nature_house',
+            source: 'nature_house',
+            type: 'fill', 
+            paint: {
+            'fill-color': '#FFDB58',
+            'fill-outline-color': '#D3D3D3',
+            'fill-opacity': 0.70
                 }
         });
 
-        // Wait on adding cayuse umatilla walla walla territory 
-        // map.addLayer({
-        //   id: 'cayuse',
-        //   type: 'fill',
-        // paint: {
-        //   'fill-color': '#FFB6C1',
-        //   'fill-outline-color': '#FFB6C1',
-        //   'fill-opacity': 0.60
-        //       }, 
-        // layout: {
-        //   'visibility': 'visible'
-        // }, 
-        //   source: {
-        //     type: 'geojson',
-        //     data: 'https://raw.githubusercontent.com/gorgewaterway/flowing_histories/refs/heads/main/cayuse_umatilla_wallawalla.geojson'
-        //   }
-        // });
-
-        document.getElementById('slider').addEventListener('input', (event) => {
-          const year = parseInt(event.target.value);
-          const filterYear = ['==', ['get', 'Year'], year];
-
-        // Update the map layer filter
-        map.setFilter('Historical Points of Interest', filterYear);
-
-        // Update the UI label
-        document.getElementById('active-year').innerText = year;
-
-        // Zoom to the visible features
-        const features = map.queryRenderedFeatures({
-        layers: ['Historical Points of Interest'],
-        filter: filterYear
-      });
-
-        if (features.length > 0) {
-          const coordinates = features.map(f => f.geometry.coordinates);
-          const bounds = coordinates.reduce(
-          (b, coord) => b.extend(coord),
-          new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
-        );
-
-        map.fitBounds(bounds, {
-          padding: 50,
-          maxZoom: 10,
-          pitch: 60,
-          bearing: 30,
-          duration: 1000
-        });
-      }
-      });
-
-        // Add popup click event
-        map.on('click', 'Historical Points of Interest', (e) => {
-        const coordinates = e.features[0].geometry.coordinates.slice();
+     // Add popup click event
+        map.on('click', 'resto_sites', (e) => {
+        const coordinates = e.lngLat;
         const properties = e.features[0].properties;
 
         // Add popups to point layer 
         new mapboxgl.Popup()
           .setLngLat(coordinates)
-          .setHTML(`<strong>Name:</strong> ${properties.Name}<br><strong>Description: </strong>${properties.Description}<br><strong>Year: </strong>${properties.Year}`)
+          .setHTML(`<strong>Site Name:</strong> ${properties.Site}<br><strong>Description: </strong>${properties.Details}`)
           .addTo(map);
         });
 
         // Change the cursor to a pointer when the mouse is over the points layer.
-        map.on('mouseenter', 'Historical Points of Interest', () => {
+        map.on('mouseenter', 'resto_sites', () => {
         map.getCanvas().style.cursor = 'pointer';
         });
 
         // Change it back when the mouse leaves.
-        map.on('mouseleave', 'Historical Points of Interest', () => {
+        map.on('mouseleave', 'resto_sites', () => {
         map.getCanvas().style.cursor = '';
         });
-
-        // Add popups to WSANEC layer 
-        map.on('click', 'W̱SÁNEĆ Traditional Territory', (e) => {
-        const coordinates = e.lngLat; 
-        const properties = e.features[0].properties; 
-
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(`<strong>Name:</strong> ${properties.Name}<br><strong>Description: </strong>${properties.Description}`)
-          .addTo(map);
-        });
-
-        // Change the cursor to a pointer when the mouse is over the points layer.
-        map.on('mouseenter', 'W̱SÁNEĆ Traditional Territory', () => {
-        map.getCanvas().style.cursor = 'pointer';
-        });
-
-        // Change it back when the mouse leaves.
-        map.on('mouseleave', 'W̱SÁNEĆ Traditional Territory', () => {
-        map.getCanvas().style.cursor = '';
-        });
-
-        // Add popups to Lekwungen/Songhees layer 
-        map.on('click', 'lək̓ʷəŋən Traditional Territory', (e) => {
+    
+    map.on('click', 'nature_house', (e) => {
         const coordinates = e.lngLat;
         const properties = e.features[0].properties;
 
         new mapboxgl.Popup()
           .setLngLat(coordinates)
-          .setHTML(`<strong>Name:</strong> ${properties.Name}<br><strong>Description: </strong>${properties.Description}`)
+          .setHTML(`<strong>Site Name:</strong> ${properties.Site}<br><strong>Description: </strong>${properties.Details}`)
           .addTo(map);
+        });
 
         // Change the cursor to a pointer when the mouse is over the points layer.
-        map.on('mouseenter', 'lək̓ʷəŋən Traditional Territory', () => {
+        map.on('mouseenter', 'nature_house', () => {
         map.getCanvas().style.cursor = 'pointer';
         });
 
         // Change it back when the mouse leaves.
-        map.on('mouseleave', 'lək̓ʷəŋən Traditional Territory', () => {
+        map.on('mouseleave', 'nature_house', () => {
         map.getCanvas().style.cursor = '';
         });
+  }); 
+    
+</script>
 
-      });
-    }); 
-
-      // After the last frame rendered before the map enters an "idle" state.
-      map.on('idle', () => {
-        // If these three layers were not added to the map, abort
-        if (!map.getLayer('Historical Points of Interest') || !map.getLayer('W̱SÁNEĆ Traditional Territory') || !map.getLayer('lək̓ʷəŋən Traditional Territory')) {
-            return;
-        }
-
-        // Enumerate ids of the layers.
-        const toggleableLayerIds = ['Historical Points of Interest', 'W̱SÁNEĆ Traditional Territory', 'lək̓ʷəŋən Traditional Territory'];
-
-        // Set up the corresponding toggle button for each layer.
-        for (const id of toggleableLayerIds) {
-            // Skip layers that already have a button set up.
-            if (document.getElementById(id)) {
-                continue;
-            }
-
-            // Create a link.
-            const link = document.createElement('a');
-            link.id = id;
-            link.href = '#';
-            link.textContent = id;
-            link.className = 'active';
-          
-          // Set initial class based on layer visibility
-        const visibility = map.getLayoutProperty(id, 'visibility');
-        link.className = (visibility === 'visible') ? 'active' : '';
-
-            // Show or hide layer when the toggle is clicked.
-            link.onclick = function (e) {
-                const clickedLayer = this.textContent;
-                e.preventDefault();
-                e.stopPropagation();
-
-                const visibility = map.getLayoutProperty(
-                    clickedLayer,
-                    'visibility'
-                );
-
-               // Toggle layer visibility by changing the layout object's visibility property.
-                if (visibility === 'visible') {
-                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                    this.className = '';
-                } else {
-                    this.className = 'active';
-                    map.setLayoutProperty(
-                        clickedLayer,
-                        'visibility',
-                        'visible'
-                    );
-                }
-            };
-
-            const layers = document.getElementById('menu');
-            layers.appendChild(link);
-        }
-    });
-    </script>
-  </body>
+</body>
 </html>
