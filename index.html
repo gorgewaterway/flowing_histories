@@ -34,14 +34,14 @@ body { margin: 0; padding: 0; }
 </style>
 </head>
 <body>
-  <div id="button"></div>
   <div id="map"></div>
+  <div id="button"></div>
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibGl6bWNjbGVhcnkiLCJhIjoiY203dXJvbG8zMDQxcTJqb2RobWJrb29rZiJ9.EXEp4Zxzb90S3p3977Pnfw';
     const map = new mapboxgl.Map({
         container: 'map', 
         center: [-123.407, 48.4457],
-        zoom: 17
+        zoom: 14
     });
   
       const scale = new mapboxgl.ScaleControl({
@@ -52,9 +52,6 @@ body { margin: 0; padding: 0; }
       map.addControl(scale);
 
       scale.setUnit('metric');
-      
-      // Add Find My Location to map 
-      map.addControl(new mapboxgl.NavigationControl());
   
   map.on('load', () => {
         map.addSource('resto_sites', {
