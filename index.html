@@ -346,6 +346,41 @@ Beginning in 2023, GWAS staff monitor amphibian presence in Esquimalt Gorge Park
         bearing: 30,
         pitch: 45
     });
+	// Add WSANEC territory layer to map 
+        map.addLayer({
+          source: {
+            type: 'geojson',
+            data: 'https://raw.githubusercontent.com/gorgewaterway/flowing_histories/refs/heads/main/wsanec.geojson'
+          },
+          id: 'W̱SÁNEĆ Traditional Territory',
+          type: 'fill',
+          layout: {
+            'visibility': 'none'
+          }, 
+          paint: {
+            'fill-color': '#FFB6C1',
+            'fill-outline-color': '#FFB6C1',
+            'fill-opacity': 0.40
+                }
+        });
+
+        // Add Lekwungen/Songhees territory layer to map 
+        map.addLayer({
+          source: {
+            type: 'geojson',
+            data: 'https://raw.githubusercontent.com/gorgewaterway/flowing_histories/refs/heads/main/lekwungen_songhees.geojson'
+          },
+          id: 'lək̓ʷəŋən Traditional Territory',
+          type: 'fill',
+          layout: {
+            'visibility': 'none'
+          }, 
+          paint: {
+            'fill-color': '#F5F5DC',
+            'fill-outline-color': '#F5F5DC',
+            'fill-opacity': 0.40
+                }
+        });
 
     const chapters = {
         'immemorial': {
