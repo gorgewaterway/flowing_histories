@@ -1,6 +1,7 @@
 {
 "type": "FeatureCollection", 
-"features": [
+"features": [ 
+    { 
     "type": "Feature",
     "properties": {
       "Name": "Cayuse, Umatilla and Walla Walla",
@@ -449,3 +450,4 @@
     }
   }
 ]
+}
