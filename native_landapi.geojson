@@ -5,6 +5,7 @@
     "type": "Feature",
     "properties": {
       "Name": "Á,LEṈENEȻ ȽTE (W̱SÁNEĆ)",
+      "Language": "SENĆOŦEN",
       "ID": 436,
       "Slug": "w%cc%b1sanec",
       "description": "https://native-land.ca/maps/territories/w%cc%b1sanec",
@@ -139,6 +140,7 @@
     "type": "Feature",
     "properties": {
       "Name": "Lekwungen/Songhees",
+      "Langauge": "lək̓ʷáŋən",
       "ID": 545,
       "Slug": "lekwungen-songhees",
       "description": "https://native-land.ca/maps/territories/lekwungen-songhees",
@@ -187,6 +189,7 @@
     "type": "Feature",
     "properties": {
       "Name": "Te’mexw Treaty Association",
+      "Language": "lək̓ʷáŋən, Hul’q’umi’num’",
       "ID": 981,
       "Slug": "temexw-treaty-association",
       "description": "https://native-land.ca/maps/territories/temexw-treaty-association",
@@ -318,6 +321,7 @@
     "type": "Feature",
     "properties": {
       "Name": "Cayuse, Umatilla and Walla Walla",
+      "Language": "Weyíiletpuu, Umatilla, Walla Walla", 
       "ID": 161,
       "Slug": "cayuse-umatilla-and-walla-walla",
       "description": "https://native-land.ca/maps/territories/cayuse-umatilla-and-walla-walla",
