@@ -7,7 +7,7 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
   <script src="https://watergis.github.io/mapbox-gl-legend/mapbox-gl-legend.js"></script> 
-<script src="https://unpkg.com/mapbox-gl-legend@latest/dist/mapbox-gl-legend.min.js">
+<script src="https://github.com/watergis/mapbox-gl-legend/blob/master/css/styles.css">
 </script>
 <style>
 body { margin: 0; padding: 0; }
@@ -41,11 +41,11 @@ body { margin: 0; padding: 0; }
         border-bottom: none;
         margin-bottom: 200px;
     }
-        .mapboxgl-ctrl-scale {
-            font-size: 15px; 
-            padding: 6px;
-            bottom: 2px; 
-            left: 2px;
+      .mapboxgl-ctrl-scale {
+         font-size: 15px; 
+         padding: 6px;
+         bottom: 2px; 
+         left: 2px;
         }
 
       .mapboxgl-ctrl-top-right {
@@ -56,6 +56,42 @@ body { margin: 0; padding: 0; }
         width: 30px; 
         height: 30px; 
       }
+      .mapboxgl-legend-title-label{
+        font-size: 15px; 
+        font-weight: bold; 
+        margin: 6px;
+      }
+      .mapboxgl-legend-switcher
+      { 
+        background: url('data:image/svg+xml;charset=UTF-8,<svg height="512pt" viewBox="0 0 512 512.0005" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m220 0h-200c-11.046875 0-20 8.953125-20 20v200c0 11.046875 8.953125 20 20 20h200c11.046875 0 20-8.953125 20-20v-200c0-11.046875-8.953125-20-20-20zm-20 200h-160v-160h160zm299.65625 73.523438c-7.472656-3.097657-16.078125-1.386719-21.796875 4.332031l-200 200c-5.722656 5.722656-7.433594 14.324219-4.335937 21.796875 3.097656 7.476562 10.386718 12.347656 18.476562 12.347656h200c11.046875 0 20-8.953125 20-20v-200c0-8.089844-4.871094-15.382812-12.34375-18.476562zm-27.65625 198.476562h-131.714844l131.714844-131.714844zm-80-232c66.167969 0 120-53.832031 120-120s-53.832031-120-120-120-120 53.832031-120 120 53.832031 120 120 120zm0-200c44.113281 0 80 35.886719 80 80s-35.886719 80-80 80-80-35.886719-80-80 35.886719-80 80-80zm-157.859375 266.144531-85.855469 85.855469 85.855469 85.855469c7.8125 7.8125 7.8125 20.476562 0 28.285156-7.808594 7.808594-20.472656 7.8125-28.28125 0l-85.859375-85.855469-85.859375 85.859375c-7.808594 7.808594-20.472656 7.808594-28.28125 0-7.8125-7.8125-7.8125-20.476562 0-28.285156l85.855469-85.859375-85.855469-85.855469c-7.8125-7.8125-7.8125-20.476562 0-28.285156 7.808594-7.8125 20.472656-7.8125 28.28125 0l85.859375 85.855469 85.859375-85.859375c7.808594-7.808594 20.472656-7.808594 28.28125 0 7.8125 7.8125 7.8125 20.476562 0 28.289062zm0 0"/></svg>');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 70%;
+      }
+
+      .mapboxgl-legend-onlyRendered-checkbox{
+        display: none; 
+      }
+      .mapboxgl-legend-onlyRendered-label{
+        display: none; 
+      }
+  
+      table.legend-table{
+        border-collapse:collapse;
+        margin:0 auto;
+       }
+  
+      td.legend-table-td,th.legend-table-th{
+        border:1px solid #ffffff;
+        margin: 8px;
+        padding:2px;
+        text-align: left;
+      }
+  
+      td.legend-table-td > svg{
+        height: 15px;
+      }
+ 
 </style>
 
 <div id="map"></div>
@@ -568,7 +604,7 @@ In mid-July 2022, Aryze Developments launched a <a href="https://www.victoria.ca
       <small>
         <br>
             Photo Credits:
-            <a> GWAS (2025)</a>
+            <a> Carmen - GWAS (2025)</a>
         </small>
     </section>
               <section id="green_crab">
@@ -829,22 +865,6 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
                'text-halo-width': 1
             }
         });
-          
-//     map.addSource('custom-source', {
-//         type: 'vector',
-//         url: 'mapbox://styles/lizmccleary/cmcy1b3mx00d601r40sdhd7ky'
-//     });
-
-//     map.addLayer({
-//         id: 'streets-v12',
-//         type: 'fill',
-//         source: 'custom-source',
-//         'source-layer': '1928_map',
-//         paint: {
-//             'fill-color': '#088',
-//             'fill-opacity': 0.5
-//         }
-// });
 
     });
      const targets = {
@@ -857,12 +877,14 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
      };
                         
     map.addControl(new MapboxLegendControl(targets, {
-        showDefault: true, 
+        // showDefault: true, 
         showCheckbox: true, 
         onlyRendered: false,
         reverseOrder: false
     }), 'top-left');
 });
+
+                   
     const chapters = {
         'immemorial': {
             bearing: 30,
@@ -1210,7 +1232,8 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
             }
         }
     };
-  }); 
+  });
+
 </script>
 
 </body>
