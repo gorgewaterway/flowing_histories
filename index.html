@@ -693,6 +693,17 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
       });
       map.addControl(scale);
       scale.setUnit('metric');
+
+map.on('style.load', () => {
+    	map.addSource('mapbox-dem', {
+            'type': 'raster-dem',
+            'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+            'tileSize': 512,
+            'maxzoom': 14
+        });
+        // add the DEM source as a terrain layer with exaggerated height
+        map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+    }); 
  
 
   map.on('load', () => { fetch('https://raw.githubusercontent.com/gorgewaterway/flowing_histories/refs/heads/main/native_landapi.geojson')
