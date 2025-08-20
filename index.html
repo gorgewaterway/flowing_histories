@@ -4,11 +4,8 @@
 <meta charset="utf-8">
 <title>Fly to a location based on scroll position</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet"></link> 
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-  <script src="https://watergis.github.io/mapbox-gl-legend/mapbox-gl-legend.js"></script> 
-<script src="https://github.com/watergis/mapbox-gl-legend/blob/master/css/styles.css">
-</script>
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
@@ -49,52 +46,43 @@ body { margin: 0; padding: 0; }
         }
 
       .mapboxgl-ctrl-top-right {
-        top: 2px; 
+        top: 8px; 
         right: 2px;
       }
       .mapboxgl-ctrl-group button {
         width: 30px; 
         height: 30px; 
       }
-      .mapboxgl-legend-title-label{
-        font-size: 15px; 
-        font-weight: bold; 
-        margin: 6px;
-      }
-      .mapboxgl-legend-switcher
-      { 
-        background: url('data:image/svg+xml;charset=UTF-8,<svg height="512pt" viewBox="0 0 512 512.0005" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m220 0h-200c-11.046875 0-20 8.953125-20 20v200c0 11.046875 8.953125 20 20 20h200c11.046875 0 20-8.953125 20-20v-200c0-11.046875-8.953125-20-20-20zm-20 200h-160v-160h160zm299.65625 73.523438c-7.472656-3.097657-16.078125-1.386719-21.796875 4.332031l-200 200c-5.722656 5.722656-7.433594 14.324219-4.335937 21.796875 3.097656 7.476562 10.386718 12.347656 18.476562 12.347656h200c11.046875 0 20-8.953125 20-20v-200c0-8.089844-4.871094-15.382812-12.34375-18.476562zm-27.65625 198.476562h-131.714844l131.714844-131.714844zm-80-232c66.167969 0 120-53.832031 120-120s-53.832031-120-120-120-120 53.832031-120 120 53.832031 120 120 120zm0-200c44.113281 0 80 35.886719 80 80s-35.886719 80-80 80-80-35.886719-80-80 35.886719-80 80-80zm-157.859375 266.144531-85.855469 85.855469 85.855469 85.855469c7.8125 7.8125 7.8125 20.476562 0 28.285156-7.808594 7.808594-20.472656 7.8125-28.28125 0l-85.859375-85.855469-85.859375 85.859375c-7.808594 7.808594-20.472656 7.808594-28.28125 0-7.8125-7.8125-7.8125-20.476562 0-28.285156l85.855469-85.859375-85.855469-85.855469c-7.8125-7.8125-7.8125-20.476562 0-28.285156 7.808594-7.8125 20.472656-7.8125 28.28125 0l85.859375 85.855469 85.859375-85.859375c7.808594-7.808594 20.472656-7.808594 28.28125 0 7.8125 7.8125 7.8125 20.476562 0 28.289062zm0 0"/></svg>');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 70%;
-      }
+  
+      .popup_title {
+            position: absolute;
+            top: 40%;
+            bottom: 60%;
+            left: 50%;
+            width: 70%;
+            /* 1/3 of the viewport width */
+            height: 70%;
+            /* 1/3 of the viewport height */
+            transform: translate(-70%, -50%);
+            padding: 20px;
+            z-index: 1000;
+        }
 
-      .mapboxgl-legend-onlyRendered-checkbox{
-        display: none; 
-      }
-      .mapboxgl-legend-onlyRendered-label{
-        display: none; 
-      }
-  
-      table.legend-table{
-        border-collapse:collapse;
-        margin:0 auto;
-       }
-  
-      td.legend-table-td,th.legend-table-th{
-        border:1px solid #ffffff;
-        margin: 8px;
-        padding:2px;
-        text-align: left;
-      }
-  
-      td.legend-table-td > svg{
-        height: 15px;
+        .popup_title img {
+            width: 30%;
+            /* Ensure image fills the container width */
+            height: 30%;
+            /* Maintain aspect ratio */
+            display: block;
+            /* Prevents extra space below image */
       }
  
 </style>
 
 <div id="map"></div>
+  <div id="popup_title" class="popup_title">
+        <img id="popup_titleImg" src="https://github.com/gorgewaterway/flowing_histories/blob/main/images/legend.png?raw=true" alt="Popup Image"> 
+    </div>
 <div id="features">
     <section id="immemorial" class="active">
         <h3>lək̓ʷəŋən and W̱SÁNEĆ Lands</h3>
@@ -674,11 +662,12 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
     </section>
 </div>
 <script>
+  
 	mapboxgl.accessToken = 'pk.eyJ1IjoibGl6bWNjbGVhcnkiLCJhIjoiY203dXJvbG8zMDQxcTJqb2RobWJrb29rZiJ9.EXEp4Zxzb90S3p3977Pnfw';
     const map = new mapboxgl.Map({
         container: 'map',
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        style: 'mapbox://styles/mapbox/light-v11',
+        style: 'mapbox://styles/lizmccleary/cmej46qal00h801ss6vsj3ar5',
         center: [-123.403866, 48.433766],
         zoom: 9,
         bearing: 30,
@@ -707,17 +696,23 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
           });
 
           map.addLayer({
-            id: 'native-land-layer-0',
+            id: 'lək̓ʷəŋən Territory',
             type: 'fill',
             source: 'native-land-0',
             paint: {
               'fill-color': '#FFB26F',
               'fill-opacity': 0.15
-            }
-          });
+            },
+            metadata: {
+            name: 'lək̓ʷəŋən Territory',
+            unit: '',
+            labels: {
+            1: 'Territory'
+            }}
+        });
 
           map.addLayer({
-            id: `native-land-layer-0-outline`,
+            id: `lək̓ʷəŋən Territory Outline`,
             type: 'line',
             source: 'native-land-0',
             paint: {
@@ -727,7 +722,7 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
             }
         });
           map.addLayer({
-            id: 'native-land-labels0',
+            id: 'lək̓ʷəŋən Territory Labels',
             type: 'symbol',
             source: 'native-land-0',
             layout: {
@@ -743,17 +738,23 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
             }
          });          
           map.addLayer({
-            id: 'native-land-layer-1',
+            id: 'W̱SÁNEĆ Territory',
             type: 'fill',
             source: 'native-land-1',
             paint: {
               'fill-color': '#9B7EBD',
               'fill-opacity': 0.15
-            }
+            },          
+            metadata: {
+            name: 'W̱SÁNEĆ Territory',
+            unit: '',
+            labels: {
+            1: 'Territory'
+            }}
           });
 
           map.addLayer({
-            id: `native-land-layer-1-outline`,
+            id: `W̱SÁNEĆ Territory Outline`,
             type: 'line',
             source: 'native-land-1',
             paint: {
@@ -763,7 +764,7 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
             }
         });
           map.addLayer({
-            id: 'native-land-labels1',
+            id: 'W̱SÁNEĆ Territory Labels',
             type: 'symbol',
             source: 'native-land-1',
             layout: {
@@ -779,7 +780,7 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
             }
          });               
           map.addLayer({
-            id: 'native-land-layer-2',
+            id: 'Te’mexw Treaty Association',
             type: 'fill',
             source: 'native-land-2',
             layout: {
@@ -788,24 +789,30 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
             paint: {
               'fill-color': '#DA6C6C',
               'fill-opacity': 0.15
-            }
+            }, 
+            metadata: {
+            name: 'Te’mexw Treaty Association',
+            unit: '',
+            labels: {
+            1: 'Territory'
+            }}
           });
 
           map.addLayer({
-            id: `native-land-layer-2-outline`,
+            id: `Te’mexw Treaty Association Outline`,
             type: 'line',
             source: 'native-land-2',
-            layout: {
-              'visibility': 'none'
-            },
+            // layout: {
+            //   'visibility': 'none'
+            // },
             paint: {
               'line-color': '#CD5656',
-              'line-width': 2,
+              'line-width': 2.5,
               'line-dasharray': [0.5, 1]
             }
         });
           map.addLayer({
-            id: 'native-land-labels2',
+            id: 'Te’mexw Treaty Association Labels',
             type: 'symbol',
             source: 'native-land-2',
             layout: {
@@ -822,7 +829,7 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
             }
           });      
           map.addLayer({
-            id: 'native-land-layer-3',
+            id: 'Cayuse, Umatilla and Walla Walla Territory',
             type: 'fill',
             source: 'native-land-3',
             layout: {
@@ -831,24 +838,30 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
             paint: {
               'fill-color': '#606676',
               'fill-opacity': 0.15
-            }
+            },             
+            metadata: {
+            name: 'Cayuse, Umatilla and Walla Walla Territory',
+            unit: '',
+            labels: {
+            1: 'Territory'
+            }}
           });
 
           map.addLayer({
-            id: `native-land-layer-3-outline`,
+            id: `Cayuse, Umatilla and Walla Walla Territory Outline`,
             type: 'line',
             source: 'native-land-3',
-            layout: {
-              visibility: 'none'
-            },
+            // layout: {
+            //   visibility: 'none'
+            // },
             paint: {
               'line-color': '#555879',
-              'line-width': 2,
+              'line-width': 2.5,
               'line-dasharray': [0.5, 1]
             }
         });
           map.addLayer({
-            id: 'native-land-labels3',
+            id: 'Cayuse, Umatilla and Walla Walla Territory Labels',
             type: 'symbol',
             source: 'native-land-3',
             layout: {
@@ -866,22 +879,6 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
         });
 
     });
-     const targets = {
-        'native-land-layer-0': 'lək̓ʷəŋən Territory',
-        'native-land-layer-1': 'W̱SÁNEĆ Territory', 
-        'native-land-layer-2': 'Te’mexw Treaty Association',
-        'native-land-layer-3': 'Cayuse, Umatilla and Walla Walla Territory'
-       // ,
-        // '1928_map': 'MapBox Streets Basemap'
-     };
-                        
-    map.addControl(new MapboxLegendControl(targets, {
-        // showDefault: true, 
-        showCheckbox: true, 
-        onlyRendered: false,
-        reverseOrder: false
-    }), 'top-left');
-});
 
                    
     const chapters = {
@@ -1232,6 +1229,7 @@ Beginning in 2023, GWAS staff began to monitor <a href="https://www.gorge.ca/pro
         }
     };
   });
+  }); 
 
 </script>
 
