@@ -59,13 +59,15 @@ body { margin: 0; padding: 0; }
             top: 40%;
             bottom: 60%;
             left: 50%;
-            width: 70%;
+            width: 70vw;
             /* 1/3 of the viewport width */
-            height: 70%;
+            height: 70vh;
             /* 1/3 of the viewport height */
             transform: translate(-70%, -54%);
             padding: 10px;
             z-index: 1000;
+            pointer-events: none;
+            background_color: grey; 
         }
 
         .popup_title img {
@@ -75,11 +77,24 @@ body { margin: 0; padding: 0; }
             /* Maintain aspect ratio */
             display: block;
             /* Prevents extra space below image */
+            pointer-events: auto; 
       }
+            .background_overlay {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100vw;
+              height: 100vh;
+              background-color: rgba(0, 0, 0, 0); /* Optional: semi-transparent background */
+              z-index: 999; 
+              pointer-events: none; 
+       }
  
 </style>
 
 <div id="map"></div>
+  
+  <div class="background_overlay"></div>
   <div id="popup_title" class="popup_title">
         <img id="popup_titleImg" src="https://github.com/gorgewaterway/flowing_histories/blob/main/images/legend.png?raw=true" alt="Popup Image"> 
     </div>
